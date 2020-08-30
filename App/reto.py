@@ -44,11 +44,12 @@ def printMenu():
     """
     print("\nBienvenido")
     print("1- Cargar Datos")
-    print("2- Ranking de peliculas")
-    print("3- Conocer un director")
-    print("4- Conocer un actor")
-    print("5- Entender un genero")
-    print("6- Crear ranking")
+    print("2- Mejores peliculas de un director")
+    print("3- Ranking de peliculas(personalizado)")
+    print("4- Conocer un director")
+    print("5- Conocer un actor")
+    print("6- Entender un genero")
+    print("7- Crear ranking por genero(personalizado)")
     print("0- Salir")
 
 
@@ -68,7 +69,8 @@ def loadCSVFile (file, cmpfunction):
     dialect = csv.excel()
     dialect.delimiter=";"
     try:
-        with open(  cf.data_dir + file, encoding="utf-8") as csvfile:
+        # cf.data_dir
+        with open("C:/Users/Jacob Hall/Desktop/2020-20/ISIS 1225/Reto1/Reto1_202020_template/Data/"+file,"r", encoding="utf-8") as csvfile:
             row = csv.DictReader(csvfile, dialect=dialect)
             for elemento in row: 
                 lt.addLast(lst,elemento)
@@ -78,9 +80,18 @@ def loadCSVFile (file, cmpfunction):
 
 
 def loadMovies ():
-    lst = loadCSVFile("theMoviesdb/movies-small.csv",compareRecordIds) 
-    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
-    return lst
+    SinD = loadCSVFile("theMoviesdb/SmallMoviesDetailsCleaned.csv",compareRecordIds)
+    ConD = loadCSVFile("theMoviesdb/MoviesCastingRaw-small.csv",compareRecordIds)
+    #ConD = loadCSVFile("theMoviesdb/AllMoviesCastingRaw.csv",compareRecordIds)
+    #SinD = loadCSVFile("theMoviesdb/AllMoviesDetailsCleaned.csv",compareRecordIds)
+    print("Datos cargados, " + str(lt.size(SinD)) + " elementos cargados con "+str(lt.size(ConD))+" elementos complementarios")
+    return [SinD,ConD]
+
+def infoall():
+    return
+
+def mejorespelisD(director):
+    return
 
 
 def main():
@@ -98,22 +109,25 @@ def main():
         inputs =input('Seleccione una opción para continuar\n') #leer opción ingresada
         if len(inputs)>0:
 
-            if int(inputs[0])==1: #opcion 1
+            if int(inputs[0])==1: #Carga de pelis
                 lstmovies = loadMovies()
+                return lstmovies
 
-            elif int(inputs[0])==2: #opcion 2
+            elif int(inputs[0])==2: #Mejores pelis de X
                 pass
 
-            elif int(inputs[0])==3: #opcion 3
+            elif int(inputs[0])==3: #Ranking de pelis personalizado
                 pass
 
-            elif int(inputs[0])==4: #opcion 4
+            elif int(inputs[0])==4: #Info de X
                 pass
 
-            elif int(inputs[0])==3: #opcion 5
+            elif int(inputs[0])==5: #Info de Y
                 pass
 
-            elif int(inputs[0])==4: #opcion 6
+            elif int(inputs[0])==6: #Info de un genero
+                pass
+            elif int(inputs[0])==7:#Ranking de genero personalizado
                 pass
 
 
