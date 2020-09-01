@@ -87,23 +87,29 @@ def loadMovies ():
     print("Datos cargados, " + str(lt.size(SinD)) + " elementos cargados con "+str(lt.size(ConD))+" elementos complementarios")
     return [SinD,ConD]
 
-def info(list):
+def listasinfo():
     lawiki=lt.newList()
-    for peliSD in loadMovies()[0]:
-        for peliCD in loadMovies()[1]:
+    MoviesSD=it.newIterator(loadMovies()[0])
+    MoviesCD=it.newIterator(loadMovies()[1])
+    for peliSD in MoviesSD:
+        for peliCD in MoviesCD:
             if peliSD[1]==peliCD[1]:
-                pel={'id':peliSD[1],'average':peliSD[7],'count':peliSD[9],'genre':peliSD[2],
-                'director':peliCD[2],'actor1':[peliCD[1]],'actor2':peliCD[3],
-                'actor3':peliCD[5],'actor4':peliCD[7],'actor5':peliCD[9]}
+                pel={lt.getElement(MoviesSD,1),lt.getElement(MoviesSD,7),lt.getElement(MoviesSD,9),lt.getElement(MoviesSD,2),
+                lt.getElement(MoviesCD,2),lt.getElement(MoviesCD,1),lt.getElement(MoviesCD,3),
+                lt.getElement(MoviesCD,5),lt.getElement(MoviesCD,7),lt.getElement(MoviesCD,9)}
                 lt.addLast(lawiki,pel)
+                
+                #pel={'id':lt.getElement(MoviesSD,1),'average':lt.getElement(MoviesSD,7),'count':lt.getElement(MoviesSD,9),'genre':lt.getElement(MoviesSD,2),
+                #'director':lt.getElement(MoviesCD,2),'actor1':lt.getElement(MoviesCD,1),'actor2':lt.getElement(MoviesCD,3),
+                #'actor3':lt.getElement(MoviesCD,5),'actor4':lt.getElement(MoviesCD,7),'actor5':lt.getElement(MoviesCD,9)}
                 
     return lawiki
                 
 
-def mejorespelisD(director,list):
+def mejorespelisD(director):
     best=lt.newList()
     promedio=0
-    for eta in info(loadMovies):
+    for eta in listasinfo():
         if str(eta['director'])==str(director):
             if eta['average']>=6:
                 lt.addLast(best,eta)
@@ -132,7 +138,7 @@ def main():
                 lstmovies = loadMovies()
                 return lstmovies
             elif int(inputs[0])==2: #Mejores pelis de X
-                return mejorespelisD(input("Quiero mirar las mejores pelis de "),info(loadMovies))
+                return mejorespelisD(input("Quiero mirar las mejores pelis de "),listasinfo())
 
             elif int(inputs[0])==3: #Ranking de pelis personalizado
                 pass
@@ -148,7 +154,7 @@ def main():
             elif int(inputs[0])==7:#Ranking de genero personalizado
                 pass
             elif int(inputs[0]==9):
-                return info(loadMovies)
+                return info()
 
             elif int(inputs[0])==0: #opcion 0, salir
                 sys.exit(0)
